@@ -23,17 +23,10 @@ var schedule = require('node-schedule');
 var Promise = require('promise');
 var escape = require('escape-html');
 
-// TODO(DEVELOPER): Configure your email transport.
-// Configure the email transport using the default SMTP transport and a GMail account.
-// See: https://nodemailer.com/
-// For other types of transports (Amazon SES, Sendgrid...) see https://nodemailer.com/2-0-0-beta/setup-transporter/
-var mailTransport = nodemailer.createTransport('smtps://hideki.machines%40gmail.com:$Encrypted@smtp.gmail.com');
-
-// TODO(DEVELOPER): Change the two placeholders below.
 // [START initialize]
-// Initialize the app with a service account, granting admin privileges
 var serviceAccount = require("supervisortest-d39f6-firebase-adminsdk-47hdy-4b3e7ee464.json");
-
+var smtpAccount = require("smtpcreds.json");
+var mailTransport = nodemailer.createTransport(smtpAccount.value);
 firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount),
   databaseURL: 'https://supervisortest-d39f6.firebaseio.com'
